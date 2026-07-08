@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+:root {
+  --cream: #f5f1e8;
+  --cream-deep: #ece5d3;
+  --lav-50: #f5f3fb;
+  --lav-100: #ede9f7;
+  --lav-200: #d9d3ec;
+  --lav-300: #beb3de;
+  --lav-400: #a094d1;
+  --lav-500: #8a7fcb;
+  --lav-600: #6b5fb5;
+  --lav-700: #564b93;
+  --ink: #322a58;
+  --ink-soft: #4a3f7a;
+  --ink-muted: #746a99;
+}
+
+@theme inline {
+  --color-cream: var(--cream);
+  --color-cream-deep: var(--cream-deep);
+  --color-lav-50: var(--lav-50);
+  --color-lav-100: var(--lav-100);
+  --color-lav-200: var(--lav-200);
+  --color-lav-300: var(--lav-300);
+  --color-lav-400: var(--lav-400);
+  --color-lav-500: var(--lav-500);
+  --color-lav-600: var(--lav-600);
+  --color-lav-700: var(--lav-700);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-muted: var(--ink-muted);
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-manrope);
+  --animate-drift: drift 40s linear infinite;
+  --animate-breathe: breathe 4.5s ease-in-out infinite;
+  --animate-orbit: orbit 28s linear infinite;
+
+  @keyframes drift {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(2%, -3%) rotate(4deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+  }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.035); }
+  }
+  @keyframes orbit {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+}
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-sans), sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), serif;
+}
+
+::selection {
+  background: var(--lav-300);
+  color: var(--ink);
+}
+
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
