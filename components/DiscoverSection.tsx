@@ -7,13 +7,13 @@ const DISCOVER_ITEMS = [
     href: "/revues",
     Icon: BookOpen,
     title: "Revues",
-    description: "Ce qu'elle a lu, ce qu'elle en pense, sans détour.",
+    description: "Ce que j'ai lu, ce que j'en pense, sans détour.",
   },
   {
     href: "/ecrits",
     Icon: Feather,
     title: "Écrits",
-    description: "Poèmes, textes, réflexions — ce qui la traverse.",
+    description: "Poèmes, textes, réflexions — ce qui me traverse.",
   },
   {
     href: "/njogonal-litteraire",
