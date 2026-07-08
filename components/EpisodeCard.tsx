@@ -1,9 +1,10 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Play, Pause, Mic } from "lucide-react";
+import { Play, Pause, Mic, Star } from "lucide-react";
 import { Episode } from "@/lib/types";
 import { usePlayer } from "@/context/PlayerContext";
 
@@ -28,6 +29,21 @@ export default function EpisodeCard({
   const { current, isPlaying, play, toggle } = usePlayer();
   const isCurrent = current?.slug === episode.slug;
   const showPause = isCurrent && isPlaying;
+
+  const [rating, setRating] = useState<{ average: number; count: number } | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    fetch(`/api/episodes/${episode.slug}/ratings`)
+      .then((r) => r.json())
+      .then((d) => {
+        if (active && d.count > 0) setRating({ average: d.average, count: d.count });
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, [episode.slug]);
 
   const handlePlayClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -95,9 +111,19 @@ export default function EpisodeCard({
           <p className="mt-2 text-sm text-ink-muted line-clamp-2 leading-relaxed">
             {episode.description}
           </p>
-          <p className="mt-4 text-xs text-ink-muted">
-            {formatDate(episode.date)}
-          </p>
+          <div className="mt-4 flex items-center justify-between">
+            <p className="text-xs text-ink-muted">{formatDate(episode.date)}</p>
+            {rating && (
+              <div className="flex items-center gap-1.5">
+                <Star size={12} className="text-lav-500" fill="currentColor" />
+                <span className="text-xs text-ink-muted flex items-center gap-1.5">
+                  {rating.average.toFixed(1)}
+                  <span className="w-1 h-1 rounded-full bg-ink-muted inline-block" />
+                  {rating.count}
+                </span>
+              </div>
+            )}
+          </div>
         </div>
       </Link>
     </motion.div>
