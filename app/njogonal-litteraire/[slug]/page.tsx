@@ -2,9 +2,10 @@
 
 import { use, useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, ExternalLink } from "lucide-react";
-import { NjogonalVideo } from "@/lib/types";
+import { ArrowLeft, ExternalLink, BookOpen, ArrowRight } from "lucide-react";
+import { NjogonalVideo, Review } from "@/lib/types";
 import { fetchNjogonalVideos } from "@/lib/njogonal";
+import { fetchReviews } from "@/lib/reviews";
 import VideoEmbed from "@/components/VideoEmbed";
 
 function formatDate(dateStr: string) {
@@ -14,15 +15,30 @@ function formatDate(dateStr: string) {
   return d.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
 }
 
+// Rapproche la vidéo d'une revue existante si le titre du livre correspond.
+function findMatchingReview(bookTitle: string, reviews: Review[]): Review | null {
+  const normalized = bookTitle.toLowerCase();
+  return (
+    reviews.find(
+      (r) =>
+        normalized.includes(r.bookTitle.toLowerCase()) ||
+        r.bookTitle.toLowerCase().includes(normalized.split("—")[0].trim())
+    ) ?? null
+  );
+}
+
 export default function NjogonalVideoPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
   const [video, setVideo] = useState<NjogonalVideo | null | undefined>(undefined);
+  const [matchingReview, setMatchingReview] = useState<Review | null>(null);
 
   useEffect(() => {
     let active = true;
-    fetchNjogonalVideos().then(({ videos }) => {
+    Promise.all([fetchNjogonalVideos(), fetchReviews()]).then(([{ videos }, { reviews }]) => {
       if (!active) return;
-      setVideo(videos.find((v) => v.slug === slug) ?? null);
+      const found = videos.find((v) => v.slug === slug) ?? null;
+      setVideo(found);
+      if (found?.bookTitle) setMatchingReview(findMatchingReview(found.bookTitle, reviews));
     });
     return () => {
       active = false;
@@ -53,12 +69,36 @@ export default function NjogonalVideoPage({ params }: { params: Promise<{ slug: 
         <ArrowLeft size={15} /> Toutes les vidéos
       </Link>
 
-      <div className="relative aspect-video rounded-3xl overflow-hidden bg-gradient-to-br from-lav-100 to-lav-200 mb-8">
+      <div className="relative aspect-video rounded-3xl overflow-hidden bg-gradient-to-br from-lav-100 to-lav-200 mb-6">
         <VideoEmbed url={video.videoUrl} title={video.title} />
       </div>
 
+      {video.bookTitle && (
+        <Link
+          href={matchingReview ? `/revues/${matchingReview.slug}` : "#"}
+          className={`group flex items-center gap-3 rounded-2xl border border-lav-200/70 bg-lav-50 px-4 py-3 mb-6 ${
+            matchingReview ? "hover:border-lav-400 transition-colors" : "pointer-events-none"
+          }`}
+        >
+          <span className="grid place-items-center w-9 h-9 rounded-full bg-cream text-lav-600 shrink-0">
+            <BookOpen size={16} strokeWidth={1.75} />
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-lav-600">
+              Livre discuté
+            </p>
+            <p className="text-sm font-semibold text-ink truncate">{video.bookTitle}</p>
+          </div>
+          {matchingReview && (
+            <span className="inline-flex items-center gap-1 text-xs font-semibold text-lav-600 shrink-0 group-hover:gap-1.5 transition-all">
+              Voir la revue <ArrowRight size={13} />
+            </span>
+          )}
+        </Link>
+      )}
+
       <span className="text-xs text-lav-600 font-semibold uppercase tracking-wide">
-        {video.bookTitle} · {formatDate(video.date)}
+        {formatDate(video.date)}
       </span>
       <h1 className="font-display font-bold text-3xl sm:text-4xl text-ink mt-2 leading-tight">
         {video.title}

@@ -16,11 +16,11 @@ function formatDate(dateStr: string) {
 
 function Stars({ rating }: { rating: number }) {
   return (
-    <div className="flex items-center gap-0.5">
+    <div className="inline-flex items-center gap-1 bg-cream rounded-full px-2.5 py-1.5">
       {[1, 2, 3, 4, 5].map((i) => (
         <Star
           key={i}
-          size={16}
+          size={18}
           className={i <= Math.round(rating) ? "text-lav-500" : "text-lav-200"}
           fill={i <= Math.round(rating) ? "currentColor" : "none"}
         />
@@ -68,29 +68,31 @@ export default function ReviewPage({ params }: { params: Promise<{ slug: string 
         <ArrowLeft size={15} /> Toutes les revues
       </Link>
 
-      <div className="flex flex-col sm:flex-row gap-8">
-        <div className="relative w-40 aspect-[3/4] rounded-2xl overflow-hidden bg-gradient-to-br from-lav-100 to-lav-200 shrink-0">
-          {review.coverUrl ? (
-            <Image src={review.coverUrl} alt={review.bookTitle} fill unoptimized className="object-cover" />
-          ) : (
-            <div className="w-full h-full grid place-items-center">
-              <BookOpen size={32} strokeWidth={1.25} className="text-lav-400" />
-            </div>
-          )}
-        </div>
-
-        <div>
-          <span className="text-xs text-lav-600 font-semibold uppercase tracking-wide">
-            {review.genre} · {formatDate(review.date)}
-          </span>
-          <h1 className="font-display font-bold text-3xl text-ink mt-2 leading-tight">
-            {review.bookTitle}
-          </h1>
-          <p className="text-ink-muted mt-1">{review.author}</p>
-          <div className="mt-4">
-            <Stars rating={review.rating} />
+      <div className="rounded-3xl bg-lav-50 border border-lav-200/60 p-6 sm:p-8">
+        <div className="flex flex-col sm:flex-row gap-8">
+          <div className="relative w-40 aspect-[3/4] rounded-2xl overflow-hidden bg-gradient-to-br from-lav-100 to-lav-200 shrink-0">
+            {review.coverUrl ? (
+              <Image src={review.coverUrl} alt={review.bookTitle} fill unoptimized className="object-cover" />
+            ) : (
+              <div className="w-full h-full grid place-items-center">
+                <BookOpen size={32} strokeWidth={1.25} className="text-lav-400" />
+              </div>
+            )}
           </div>
-          <p className="mt-4 font-display italic text-lg text-ink-soft">{review.verdict}</p>
+
+          <div>
+            <span className="text-xs text-lav-600 font-semibold uppercase tracking-wide">
+              {review.genre} · {formatDate(review.date)}
+            </span>
+            <h1 className="font-display font-bold text-3xl text-ink mt-2 leading-tight">
+              {review.bookTitle}
+            </h1>
+            <p className="text-ink-muted mt-1">{review.author}</p>
+            <div className="mt-5">
+              <Stars rating={review.rating} />
+            </div>
+            <p className="mt-5 font-display italic text-lg text-ink-soft">{review.verdict}</p>
+          </div>
         </div>
       </div>
 

@@ -15,11 +15,11 @@ function formatDate(dateStr: string) {
 
 function Stars({ rating }: { rating: number }) {
   return (
-    <div className="flex items-center gap-0.5">
+    <div className="flex items-center gap-0.5 bg-lav-50 rounded-full px-2 py-1">
       {[1, 2, 3, 4, 5].map((i) => (
         <Star
           key={i}
-          size={13}
+          size={15}
           className={i <= Math.round(rating) ? "text-lav-500" : "text-lav-200"}
           fill={i <= Math.round(rating) ? "currentColor" : "none"}
         />

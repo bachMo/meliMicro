@@ -12,7 +12,7 @@ const LINKS = [
   { href: "/revues", label: "Revues" },
   { href: "/ecrits", label: "Écrits" },
   { href: "/njogonal-litteraire", label: "Njogonal littéraire" },
-  { href: "/#a-propos", label: "À propos" },
+  { href: "/a-propos", label: "À propos" },
 ];
 
 export default function Nav() {
