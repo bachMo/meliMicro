@@ -16,14 +16,17 @@ export default function Nav() {
             {SITE.name}
           </span>
         </Link>
-        <nav className="flex items-center gap-5 sm:gap-6 text-sm font-medium text-ink-soft">
+        <nav className="flex items-center gap-4 sm:gap-6 text-sm font-medium text-ink-soft">
           <Link href="/#episodes" className="hover:text-lav-600 transition-colors hidden sm:inline">
             Épisodes
           </Link>
           <Link href="/revues" className="hover:text-lav-600 transition-colors">
             Revues
           </Link>
-          <Link href="/njogonal-litteraire" className="hover:text-lav-600 transition-colors">
+          <Link href="/ecrits" className="hover:text-lav-600 transition-colors">
+            Écrits
+          </Link>
+          <Link href="/njogonal-litteraire" className="hover:text-lav-600 transition-colors hidden sm:inline">
             Njogonal littéraire
           </Link>
           <Link href="/#a-propos" className="hover:text-lav-600 transition-colors hidden sm:inline">

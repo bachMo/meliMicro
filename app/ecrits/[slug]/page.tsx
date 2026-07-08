@@ -1,0 +1,99 @@
+"use client";
+
+import { use, useEffect, useState } from "react";
+import Link from "next/link";
+import { ArrowLeft, ExternalLink } from "lucide-react";
+import { Writing } from "@/lib/types";
+import { fetchWritings } from "@/lib/writings";
+
+function formatDate(dateStr: string) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return dateStr;
+  return d.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+}
+
+export default function WritingPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params);
+  const [writing, setWriting] = useState<Writing | null | undefined>(undefined);
+
+  useEffect(() => {
+    let active = true;
+    fetchWritings().then(({ writings }) => {
+      if (!active) return;
+      setWriting(writings.find((w) => w.slug === slug) ?? null);
+    });
+    return () => {
+      active = false;
+    };
+  }, [slug]);
+
+  if (writing === undefined) {
+    return <div className="py-32 text-center text-ink-muted text-sm">Chargement...</div>;
+  }
+
+  if (writing === null) {
+    return (
+      <div className="py-32 text-center">
+        <p className="text-ink-muted text-sm mb-4">Ce texte n&apos;existe pas ou plus.</p>
+        <Link href="/ecrits" className="text-lav-600 text-sm font-semibold">
+          Retour aux écrits
+        </Link>
+      </div>
+    );
+  }
+
+  const isPoem = writing.category.toLowerCase().includes("poème");
+
+  return (
+    <article className="mx-auto max-w-2xl px-5 sm:px-8 py-12">
+      <Link
+        href="/ecrits"
+        className="inline-flex items-center gap-1.5 text-sm text-ink-muted hover:text-lav-600 transition-colors mb-8"
+      >
+        <ArrowLeft size={15} /> Tous les écrits
+      </Link>
+
+      <div className={isPoem ? "text-center" : ""}>
+        <span className="text-xs text-lav-600 font-semibold uppercase tracking-wide">
+          {writing.category} · {formatDate(writing.date)}
+        </span>
+        <h1 className="font-display font-bold text-3xl sm:text-4xl text-ink mt-3 leading-tight">
+          {writing.title}
+        </h1>
+      </div>
+
+      <div
+        className={
+          isPoem
+            ? "mt-10 font-display italic text-lg text-ink-soft leading-loose whitespace-pre-line text-center"
+            : "mt-10 text-ink-soft leading-relaxed whitespace-pre-line"
+        }
+      >
+        {writing.content}
+      </div>
+
+      {writing.links.length > 0 && (
+        <div className="mt-12">
+          <h2 className="text-xs font-semibold uppercase tracking-wide text-lav-600 mb-3">
+            Liens utiles
+          </h2>
+          <ul className="flex flex-col gap-2">
+            {writing.links.map((link, i) => (
+              <li key={i}>
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm text-ink-soft hover:text-lav-600 transition-colors"
+                >
+                  <ExternalLink size={13} /> {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </article>
+  );
+}

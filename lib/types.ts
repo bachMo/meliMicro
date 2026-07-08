@@ -39,3 +39,13 @@ export type NjogonalVideo = {
   date: string;
   links: EpisodeLink[];
 };
+
+export type Writing = {
+  slug: string;
+  title: string;
+  category: string; // Poème, Politique, Art, Réflexion...
+  excerpt: string;
+  content: string;
+  date: string;
+  links: EpisodeLink[];
+};
