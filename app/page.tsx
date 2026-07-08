@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import Hero from "@/components/Hero";
 import AboutSection from "@/components/AboutSection";
 import FeaturedEpisode from "@/components/FeaturedEpisode";
+import DiscoverSection from "@/components/DiscoverSection";
 import { Episode } from "@/lib/types";
 import { fetchEpisodes } from "@/lib/podcast";
 
@@ -57,6 +58,8 @@ export default function Home() {
           </div>
         </section>
       )}
+
+      <DiscoverSection />
     </>
   );
 }

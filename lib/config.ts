@@ -22,13 +22,20 @@ export const SITE = {
 // Chaque section a son propre Google Sheet publié en CSV.
 // Remplace ces valeurs par tes URLs "Publier sur le web".
 
-// Épisodes audio du podcast
 export const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ-0d2b0-eh_bW3mw75YLm1l0ptttt4LsJVOvKPCVkrXiESt3n7oGpgNWiSbzujQA/pub?gid=1885952281&single=true&output=csv";
 export const REVIEWS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ-0d2b0-eh_bW3mw75YLm1l0ptttt4LsJVOvKPCVkrXiESt3n7oGpgNWiSbzujQA/pub?gid=52687466&single=true&output=csv";
 export const NJOGONAL_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ-0d2b0-eh_bW3mw75YLm1l0ptttt4LsJVOvKPCVkrXiESt3n7oGpgNWiSbzujQA/pub?gid=1999648487&single=true&output=csv";
 
 // Écrits (poèmes, textes, réflexions)
 export const WRITINGS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ-0d2b0-eh_bW3mw75YLm1l0ptttt4LsJVOvKPCVkrXiESt3n7oGpgNWiSbzujQA/pub?gid=1541268699&single=true&output=csv";
+
+// Réseaux sociaux — laisse vide ce qui n'existe pas encore,
+// le lien correspondant n'apparaîtra simplement pas sur le site.
+export const SOCIAL = {
+  instagram: "",
+  tiktok: "",
+  email: "",
+};
 
 // Toutes les 5 minutes, le site revérifie s'il y a de nouveaux épisodes.
 export const REFRESH_INTERVAL_MS = 5 * 60 * 1000;
