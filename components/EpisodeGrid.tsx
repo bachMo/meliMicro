@@ -30,7 +30,7 @@ export default function EpisodeGrid({ episodes }: { episodes: Episode[] }) {
     <section id="episodes" className="mx-auto max-w-6xl px-5 sm:px-8 py-10">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5 mb-10">
         <h2 className="font-display font-semibold text-2xl sm:text-3xl text-ink">
-          Tous les épisodes
+          Épisodes précédents
         </h2>
 
         <div className="relative w-full sm:w-72">

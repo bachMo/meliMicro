@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Hero from "@/components/Hero";
 import AboutSection from "@/components/AboutSection";
+import FeaturedEpisode from "@/components/FeaturedEpisode";
 import EpisodeGrid from "@/components/EpisodeGrid";
 import { Episode } from "@/lib/types";
 import { fetchEpisodes } from "@/lib/podcast";
@@ -30,6 +31,8 @@ export default function Home() {
     };
   }, []);
 
+  const [latest, ...rest] = episodes;
+
   return (
     <>
       <Hero />
@@ -48,7 +51,10 @@ export default function Home() {
           Chargement des épisodes...
         </div>
       ) : (
-        <EpisodeGrid episodes={episodes} />
+        <>
+          {latest && <FeaturedEpisode episode={latest} />}
+          <EpisodeGrid episodes={rest} />
+        </>
       )}
     </>
   );
