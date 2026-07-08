@@ -8,7 +8,7 @@ import { Mic, Menu, X } from "lucide-react";
 import { SITE } from "@/lib/config";
 
 const LINKS = [
-  { href: "/#episodes", label: "Épisodes" },
+  { href: "/episodes", label: "Épisodes" },
   { href: "/revues", label: "Revues" },
   { href: "/ecrits", label: "Écrits" },
   { href: "/njogonal-litteraire", label: "Njogonal littéraire" },

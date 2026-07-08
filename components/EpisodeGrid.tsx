@@ -27,7 +27,7 @@ export default function EpisodeGrid({ episodes }: { episodes: Episode[] }) {
   }, [episodes, query, category]);
 
   return (
-    <section id="episodes" className="mx-auto max-w-6xl px-5 sm:px-8 py-10">
+    <section className="mx-auto max-w-6xl px-5 sm:px-8 py-10">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5 mb-10">
         <h2 className="font-display font-semibold text-2xl sm:text-3xl text-ink">
           Épisodes précédents
