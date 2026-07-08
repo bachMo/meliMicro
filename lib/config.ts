@@ -28,7 +28,7 @@ export const REVIEWS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1
 export const NJOGONAL_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ-0d2b0-eh_bW3mw75YLm1l0ptttt4LsJVOvKPCVkrXiESt3n7oGpgNWiSbzujQA/pub?gid=1999648487&single=true&output=csv";
 
 // Écrits (poèmes, textes, réflexions)
-export const WRITINGS_CSV_URL = "";
+export const WRITINGS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ-0d2b0-eh_bW3mw75YLm1l0ptttt4LsJVOvKPCVkrXiESt3n7oGpgNWiSbzujQA/pub?gid=1541268699&single=true&output=csv";
 
 // Toutes les 5 minutes, le site revérifie s'il y a de nouveaux épisodes.
 export const REFRESH_INTERVAL_MS = 5 * 60 * 1000;

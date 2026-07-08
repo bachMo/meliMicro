@@ -34,10 +34,18 @@ export function parsePhotos(raw: string): string[] {
     .map((s) => driveImageUrl(s));
 }
 
+// Gère le cas où un saut de ligne a été collé comme texte littéral "\n"
+// (deux caractères) au lieu d'un vrai retour à la ligne dans la cellule.
+function normalizeLineBreaks(value: string): string {
+  return value.replace(/\\n/g, "\n").replace(/\\r/g, "");
+}
+
 export function pick(row: Record<string, string>, ...keys: string[]): string {
   for (const k of keys) {
     for (const rowKey of Object.keys(row)) {
-      if (rowKey.trim().toLowerCase() === k) return (row[rowKey] || "").trim();
+      if (rowKey.trim().toLowerCase() === k) {
+        return normalizeLineBreaks((row[rowKey] || "").trim());
+      }
     }
   }
   return "";
