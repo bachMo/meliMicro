@@ -22,7 +22,7 @@ const TYPE_META: Record<ItemType, { label: string; Icon: typeof Mic }> = {
   episode: { label: "Épisode", Icon: Mic },
   revue: { label: "Revue", Icon: BookOpen },
   ecrit: { label: "Écrit", Icon: Feather },
-  njogonal: { label: "Njogonal littéraire", Icon: Clapperboard },
+  njogonal: { label: "Ndiogonal littéraire", Icon: Clapperboard },
 };
 
 export default function CommandPalette() {

@@ -6,6 +6,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Player from "@/components/Player";
 import CommandPalette from "@/components/CommandPalette";
+import PageTransition from "@/components/PageTransition";
 import { SITE } from "@/lib/config";
 
 const fraunces = Fraunces({
@@ -39,7 +40,9 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-cream text-ink">
         <PlayerProvider>
           <Nav />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1">
+            <PageTransition>{children}</PageTransition>
+          </main>
           <Footer />
           <Player />
           <CommandPalette />

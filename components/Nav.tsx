@@ -23,7 +23,7 @@ export default function Nav() {
     <header className="sticky top-0 z-40 backdrop-blur-md bg-cream/80 border-b border-lav-200/60">
       <div className="mx-auto max-w-6xl px-5 sm:px-8 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5 group" onClick={() => setOpen(false)}>
-          <span className="grid place-items-center w-8 h-8 rounded-full bg-gradient-to-br from-lav-400 to-lav-600 text-cream group-hover:scale-105 transition-transform">
+          <span id="nav-mic-icon" className="grid place-items-center w-8 h-8 rounded-full bg-gradient-to-br from-lav-400 to-lav-600 text-cream group-hover:scale-105 transition-transform">
             <Mic size={16} strokeWidth={2.25} />
           </span>
           <span className="font-display font-bold text-lg tracking-tight text-ink">

@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform, type Variants } from "framer-motion";
 import {
   Heart,
   Orbit,
@@ -50,15 +51,72 @@ const SCATTER_DOTS = [
   { top: "6%", left: "48%", size: 3 },
 ];
 
-export default function Hero() {
+// Variantes pour la révélation du titre, lettre par lettre.
+const letterContainer: Variants = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.045, delayChildren: 0.15 },
+  },
+};
+
+const letter: Variants = {
+  hidden: { y: 44, opacity: 0 },
+  show: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] as const },
+  },
+};
+
+function AnimatedWord({ word, className }: { word: string; className?: string }) {
   return (
-    <section className="relative overflow-hidden pt-16 pb-24 sm:pt-24 sm:pb-32">
-      {/* fond doux */}
+    <motion.span
+      variants={letterContainer}
+      initial="hidden"
+      animate="show"
+      className={`inline-flex overflow-hidden ${className ?? ""}`}
+    >
+      {word.split("").map((char, i) => (
+        <motion.span key={i} variants={letter} className="inline-block">
+          {char}
+        </motion.span>
+      ))}
+    </motion.span>
+  );
+}
+
+export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Parallax : les éléments de fond et le cercle bougent à des vitesses
+  // différentes du contenu pendant le scroll, pour un effet de profondeur.
+  const blobY1 = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const blobY2 = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const circleY = useTransform(scrollYProgress, [0, 1], [0, 60]);
+  const circleScale = useTransform(scrollYProgress, [0, 1], [1, 0.82]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, -40]);
+
+  const [word1, word2] = SITE.name.split(" ");
+
+  return (
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden pt-16 pb-24 sm:pt-24 sm:pb-32"
+    >
+      {/* fond doux, en parallax */}
       <div className="pointer-events-none absolute inset-0 grain" />
-      <div className="pointer-events-none absolute -top-32 -left-24 w-96 h-96 rounded-full bg-lav-200/50 blur-3xl animate-drift" />
-      <div
+      <motion.div
+        style={{ y: blobY1 }}
+        className="pointer-events-none absolute -top-32 -left-24 w-96 h-96 rounded-full bg-lav-200/50 blur-3xl animate-drift"
+      />
+      <motion.div
+        style={{ y: blobY2, animationDelay: "-20s" }}
         className="pointer-events-none absolute -bottom-40 -right-24 w-[28rem] h-[28rem] rounded-full bg-lav-100/70 blur-3xl animate-drift"
-        style={{ animationDelay: "-20s" }}
       />
       {SCATTER_DOTS.map((dot, i) => (
         <span
@@ -68,57 +126,78 @@ export default function Hero() {
         />
       ))}
 
-      <div className="relative mx-auto max-w-6xl px-5 sm:px-8 grid lg:grid-cols-2 gap-16 items-center">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-        >
-          <div className="inline-flex items-center gap-2 rounded-full bg-lav-100 border border-lav-200 pl-2.5 pr-4 py-1.5 mb-6">
+      <motion.div
+        style={{ opacity: contentOpacity, y: contentY }}
+        className="relative mx-auto max-w-6xl px-5 sm:px-8 grid lg:grid-cols-2 gap-16 items-center"
+      >
+        <div>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="inline-flex items-center gap-2 rounded-full bg-lav-100 border border-lav-200 pl-2.5 pr-4 py-1.5 mb-6"
+          >
             <span className="grid place-items-center w-5 h-5 rounded-full bg-lav-500 text-cream">
               <Mic size={11} strokeWidth={2.5} />
             </span>
             <span className="text-xs font-semibold text-lav-700 tracking-wide">
               Le podcast qui ne s&apos;interdit rien
             </span>
-          </div>
+          </motion.div>
+
           <h1 className="font-display font-bold text-6xl sm:text-8xl leading-[0.9] text-ink">
-            {SITE.name.split(" ")[0]}
+            <AnimatedWord word={word1} />
             <br />
             <span className="relative inline-block italic font-medium text-lav-600">
-              {SITE.name.split(" ")[1]}
+              <AnimatedWord word={word2} />
               <svg
                 viewBox="0 0 200 14"
                 className="absolute left-0 -bottom-2 w-full h-3 text-lav-400"
                 preserveAspectRatio="none"
               >
-                <path
+                <motion.path
                   d="M2 8 Q 50 2, 100 7 T 198 6"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="4"
                   strokeLinecap="round"
+                  initial={{ pathLength: 0 }}
+                  animate={{ pathLength: 1 }}
+                  transition={{ duration: 0.7, delay: 0.6, ease: "easeOut" }}
                 />
               </svg>
             </span>
           </h1>
-          <p className="mt-8 text-lg text-ink-soft max-w-md leading-relaxed">
+
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.55, ease: "easeOut" }}
+            className="mt-8 text-lg text-ink-soft max-w-md leading-relaxed"
+          >
             {SITE.tagline.charAt(0).toUpperCase() + SITE.tagline.slice(1)}
-          </p>
-          <div className="mt-9 flex items-center gap-4">
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
+            className="mt-9 flex items-center gap-4"
+          >
             <a
               href="#episodes"
               className="inline-flex items-center gap-2 rounded-full bg-ink text-cream px-6 py-3 text-sm font-semibold hover:bg-lav-700 transition-colors"
             >
               <Mic size={16} /> Écouter les épisodes
             </a>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
 
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
+          style={{ y: circleY, scale: circleScale }}
           className="relative mx-auto w-full max-w-md aspect-square"
         >
           {/* anneau d'orbite en pointillés, relie visuellement les icônes */}
@@ -157,7 +236,7 @@ export default function Hero() {
             />
           </div>
         </motion.div>
-      </div>
+      </motion.div>
 
       <motion.a
         href="#episodes"
