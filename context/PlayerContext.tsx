@@ -18,9 +18,13 @@ type PlayerContextType = {
   duration: number;
   currentTime: number;
   error: string | null;
+  speed: number;
   play: (episode: Episode) => void;
   toggle: () => void;
   seek: (fraction: number) => void;
+  skip: (seconds: number) => void;
+  setSpeed: (value: number) => void;
+  close: () => void;
 };
 
 const PlayerContext = createContext<PlayerContextType | null>(null);
@@ -41,6 +45,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const [speed, setSpeedState] = useState(1);
 
   useEffect(() => {
     const audio = new Audio();
@@ -101,6 +106,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
       candidatesRef.current = candidates;
       candidateIndexRef.current = 0;
       audio.src = candidates[0] || episode.audioUrl;
+      audio.playbackRate = speed;
       setCurrent(episode);
       setCurrentTime(0);
     }
@@ -128,6 +134,32 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     audio.currentTime = fraction * duration;
   };
 
+  const skip = (seconds: number) => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.currentTime = Math.min(Math.max(audio.currentTime + seconds, 0), duration || Infinity);
+  };
+
+  const setSpeed = (value: number) => {
+    const audio = audioRef.current;
+    if (audio) audio.playbackRate = value;
+    setSpeedState(value);
+  };
+
+  const close = () => {
+    const audio = audioRef.current;
+    if (audio) {
+      audio.pause();
+      audio.removeAttribute("src");
+      audio.load();
+    }
+    setCurrent(null);
+    setIsPlaying(false);
+    setCurrentTime(0);
+    setDuration(0);
+    setError(null);
+  };
+
   return (
     <PlayerContext.Provider
       value={{
@@ -137,9 +169,13 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
         duration,
         currentTime,
         error,
+        speed,
         play,
         toggle,
         seek,
+        skip,
+        setSpeed,
+        close,
       }}
     >
       {children}

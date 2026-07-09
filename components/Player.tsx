@@ -1,8 +1,11 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Play, Pause, Mic } from "lucide-react";
+import { Play, Pause, RotateCcw, RotateCw, X } from "lucide-react";
 import { usePlayer } from "@/context/PlayerContext";
+
+const SPEEDS = [0.5, 0.75, 1, 1.25, 1.5, 2];
+const SKIP_SECONDS = 10;
 
 function formatTime(seconds: number) {
   if (!isFinite(seconds) || seconds < 0) return "0:00";
@@ -14,8 +17,20 @@ function formatTime(seconds: number) {
 const BAR_HEIGHTS = [6, 12, 8, 16, 10, 14, 7, 11, 9, 15, 6, 13];
 
 export default function Player() {
-  const { current, isPlaying, progress, currentTime, duration, error, toggle, seek } =
-    usePlayer();
+  const {
+    current,
+    isPlaying,
+    progress,
+    currentTime,
+    duration,
+    error,
+    speed,
+    toggle,
+    seek,
+    skip,
+    setSpeed,
+    close,
+  } = usePlayer();
 
   return (
     <AnimatePresence>
@@ -32,7 +47,18 @@ export default function Player() {
               {error}
             </div>
           )}
-          <div className="rounded-2xl bg-ink/95 backdrop-blur-md text-cream shadow-2xl px-4 py-3 flex items-center gap-4">
+          <div className="rounded-2xl bg-ink/95 backdrop-blur-md text-cream shadow-2xl px-4 py-3 flex items-center gap-3">
+            <button
+              onClick={() => skip(-SKIP_SECONDS)}
+              aria-label={`Reculer de ${SKIP_SECONDS} secondes`}
+              className="relative shrink-0 text-lav-200 hover:text-cream transition-colors"
+            >
+              <RotateCcw size={18} />
+              <span className="absolute inset-0 grid place-items-center text-[7px] font-bold translate-y-px">
+                {SKIP_SECONDS}
+              </span>
+            </button>
+
             <button
               onClick={toggle}
               aria-label={isPlaying ? "Pause" : "Lecture"}
@@ -45,6 +71,17 @@ export default function Player() {
               ) : (
                 <Play size={16} fill="currentColor" className="ml-0.5" />
               )}
+            </button>
+
+            <button
+              onClick={() => skip(SKIP_SECONDS)}
+              aria-label={`Avancer de ${SKIP_SECONDS} secondes`}
+              className="relative shrink-0 text-lav-200 hover:text-cream transition-colors"
+            >
+              <RotateCw size={18} />
+              <span className="absolute inset-0 grid place-items-center text-[7px] font-bold translate-y-px">
+                {SKIP_SECONDS}
+              </span>
             </button>
 
             <div className="min-w-0 flex-1">
@@ -88,9 +125,26 @@ export default function Player() {
               </div>
             </div>
 
-            <span className="hidden sm:grid shrink-0 place-items-center w-9 h-9 rounded-full bg-lav-600/60">
-              <Mic size={14} />
-            </span>
+            <select
+              value={speed}
+              onChange={(e) => setSpeed(parseFloat(e.target.value))}
+              aria-label="Vitesse de lecture"
+              className="hidden sm:block shrink-0 w-9 bg-transparent text-[11px] text-lav-200 hover:text-cream transition-colors cursor-pointer outline-none [&>option]:text-ink"
+            >
+              {SPEEDS.map((s) => (
+                <option key={s} value={s}>
+                  {s}×
+                </option>
+              ))}
+            </select>
+
+            <button
+              onClick={close}
+              aria-label="Fermer le lecteur"
+              className="shrink-0 text-lav-300 hover:text-cream transition-colors"
+            >
+              <X size={18} />
+            </button>
           </div>
         </motion.div>
       )}
