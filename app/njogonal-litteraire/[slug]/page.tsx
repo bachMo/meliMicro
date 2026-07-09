@@ -54,7 +54,7 @@ export default function NjogonalVideoPage({ params }: { params: Promise<{ slug: 
       <div className="py-32 text-center">
         <p className="text-ink-muted text-sm mb-4">Cette vidéo n&apos;existe pas ou plus.</p>
         <Link href="/njogonal-litteraire" className="text-lav-600 text-sm font-semibold">
-          Retour à Njogonal littéraire
+          Retour à Ndiogonal littéraire
         </Link>
       </div>
     );
@@ -70,7 +70,7 @@ export default function NjogonalVideoPage({ params }: { params: Promise<{ slug: 
       </Link>
 
       <div className="relative aspect-video rounded-3xl overflow-hidden bg-gradient-to-br from-lav-100 to-lav-200 mb-6">
-        <VideoEmbed url={video.videoUrl} title={video.title} />
+        <VideoEmbed url={video.videoUrl} title={video.title} poster={video.coverUrl} />
       </div>
 
       {video.bookTitle && (

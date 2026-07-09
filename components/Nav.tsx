@@ -11,7 +11,7 @@ const LINKS = [
   { href: "/episodes", label: "Épisodes" },
   { href: "/revues", label: "Revues" },
   { href: "/ecrits", label: "Écrits" },
-  { href: "/njogonal-litteraire", label: "Njogonal littéraire" },
+  { href: "/njogonal-litteraire", label: "Ndiogonal littéraire" },
   { href: "/a-propos", label: "À propos" },
 ];
 

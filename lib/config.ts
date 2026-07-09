@@ -33,7 +33,7 @@ export const WRITINGS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-
 // Réseaux sociaux — laisse vide ce qui n'existe pas encore,
 // le lien correspondant n'apparaîtra simplement pas sur le site.
 export const SOCIAL = {
-  instagram: "https://www.instagram.com/datgyaldada/",
+  instagram: "https://www.instagram.com/dada_reads/",
   tiktok: "https://www.tiktok.com/",
   email: "aidadiao1411@gmail.com",
 };

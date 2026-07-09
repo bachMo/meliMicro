@@ -7,7 +7,7 @@ export default function VideoGrid({ videos }: { videos: NjogonalVideo[] }) {
   return (
     <section className="mx-auto max-w-6xl px-5 sm:px-8 py-10">
       <div className="mb-10">
-        <h1 className="font-display font-semibold text-3xl text-ink">Njogonal littéraire</h1>
+        <h1 className="font-display font-semibold text-3xl text-ink">Ndiogonal littéraire</h1>
         <p className="text-sm text-ink-muted mt-1">
           Le club de lecture filmé, à visage découvert.
         </p>

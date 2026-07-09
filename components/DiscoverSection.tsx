@@ -18,7 +18,7 @@ const DISCOVER_ITEMS = [
   {
     href: "/njogonal-litteraire",
     Icon: Clapperboard,
-    title: "Njogonal littéraire",
+    title: "Ndiogonal littéraire",
     description: "Le club de lecture filmé, à visage découvert.",
   },
 ];

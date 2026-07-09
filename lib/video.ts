@@ -14,16 +14,27 @@ function extractYoutubeId(url: string): string | null {
   return null;
 }
 
-// Renvoie une URL utilisable dans une balise <iframe>, que la vidéo
-// vienne de YouTube (non répertoriée conseillé) ou d'un fichier Drive.
-export function videoEmbedUrl(url: string): { src: string; type: "youtube" | "drive" } | null {
+export type VideoSource =
+  // fichier Drive : lu directement via notre propre lecteur <video>,
+  // relayé par /api/audio/[id] (qui sert aussi bien l'audio que la vidéo).
+  | { type: "file"; src: string }
+  // YouTube : pas de fichier direct disponible, on reste sur un iframe,
+  // mais nettoyé du plus de branding possible.
+  | { type: "youtube"; src: string };
+
+export function resolveVideoSource(url: string): VideoSource | null {
   if (!url) return null;
 
   const ytId = extractYoutubeId(url);
-  if (ytId) return { src: `https://www.youtube.com/embed/${ytId}`, type: "youtube" };
+  if (ytId) {
+    return {
+      type: "youtube",
+      src: `https://www.youtube.com/embed/${ytId}?modestbranding=1&rel=0&playsinline=1`,
+    };
+  }
 
   const driveId = extractDriveId(url);
-  if (driveId) return { src: `https://drive.google.com/file/d/${driveId}/preview`, type: "drive" };
+  if (driveId) return { type: "file", src: `/api/audio/${driveId}` };
 
   return null;
 }
