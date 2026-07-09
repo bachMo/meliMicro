@@ -32,7 +32,7 @@ export default function ReviewGrid({ reviews }: { reviews: Review[] }) {
         <div>
           <h1 className="font-display font-semibold text-3xl text-ink">Revues</h1>
           <p className="text-sm text-ink-muted mt-1">
-            Ce qu&apos;elle a lu, ce qu&apos;elle en a pensé, sans détour.
+            Ce que j'ai lu, ce que j'en ai pensé, sans détour.
           </p>
         </div>
         <div className="relative w-full sm:w-72">

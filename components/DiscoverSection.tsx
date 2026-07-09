@@ -7,7 +7,7 @@ const DISCOVER_ITEMS = [
     href: "/revues",
     Icon: BookOpen,
     title: "Revues",
-    description: "Ce qu'elle a lu, ce qu'elle en pense, sans détour.",
+    description: " Ce que j'ai lu, ce que j'en ai pensé, sans détour.",
   },
   {
     href: "/ecrits",

@@ -39,7 +39,7 @@ export default function WritingGrid({ writings }: { writings: Writing[] }) {
         <div>
           <h1 className="font-display font-semibold text-3xl text-ink">Écrits</h1>
           <p className="text-sm text-ink-muted mt-1">
-            Poèmes, textes, réflexions — ce qui la traverse et qu&apos;elle a mis en mots.
+            Poèmes, textes, réflexions — ce qui me traverse et que j'ai mis en mots.
           </p>
         </div>
         <div className="relative w-full sm:w-72">
