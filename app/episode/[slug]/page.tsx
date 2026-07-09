@@ -54,7 +54,7 @@ export default function EpisodePage({
   if (episode === undefined) {
     return (
       <div className="py-32 text-center text-ink-muted text-sm">
-        Chargement...
+         
       </div>
     );
   }

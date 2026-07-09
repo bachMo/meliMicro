@@ -46,7 +46,7 @@ export default function ReviewPage({ params }: { params: Promise<{ slug: string 
   }, [slug]);
 
   if (review === undefined) {
-    return <div className="py-32 text-center text-ink-muted text-sm">Chargement...</div>;
+    return <div className="py-32 text-center text-ink-muted text-sm"> </div>;
   }
 
   if (review === null) {

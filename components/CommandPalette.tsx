@@ -170,7 +170,7 @@ export default function CommandPalette() {
 
         <div className="max-h-80 overflow-y-auto py-2">
           {items === null ? (
-            <p className="text-sm text-ink-muted text-center py-8">Chargement...</p>
+            <p className="text-sm text-ink-muted text-center py-8"> </p>
           ) : filtered.length === 0 ? (
             <p className="text-sm text-ink-muted text-center py-8">Aucun résultat.</p>
           ) : (

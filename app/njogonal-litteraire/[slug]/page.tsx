@@ -47,7 +47,7 @@ export default function NjogonalVideoPage({ params }: { params: Promise<{ slug: 
   }, [slug]);
 
   if (video === undefined) {
-    return <div className="py-32 text-center text-ink-muted text-sm">Chargement...</div>;
+    return <div className="py-32 text-center text-ink-muted text-sm"> </div>;
   }
 
   if (video === null) {

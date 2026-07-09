@@ -40,7 +40,7 @@ export default function WritingPage({ params }: { params: Promise<{ slug: string
   }, [slug]);
 
   if (writing === undefined) {
-    return <div className="py-32 text-center text-ink-muted text-sm">Chargement...</div>;
+    return <div className="py-32 text-center text-ink-muted text-sm"> </div>;
   }
 
   if (writing === null) {
