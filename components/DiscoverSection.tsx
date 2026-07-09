@@ -13,7 +13,7 @@ const DISCOVER_ITEMS = [
     href: "/ecrits",
     Icon: Feather,
     title: "Écrits",
-    description: "Poèmes, textes, réflexions — ce qui la traverse.",
+    description: "Poèmes, textes, réflexions — ce qui me traverse.",
   },
   {
     href: "/njogonal-litteraire",
