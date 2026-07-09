@@ -7,6 +7,7 @@ import { NjogonalVideo, Review } from "@/lib/types";
 import { fetchNjogonalVideos } from "@/lib/njogonal";
 import { fetchReviews } from "@/lib/reviews";
 import VideoEmbed from "@/components/VideoEmbed";
+import ShareButton from "@/components/ShareButton";
 
 function formatDate(dateStr: string) {
   if (!dateStr) return "";
@@ -62,12 +63,15 @@ export default function NjogonalVideoPage({ params }: { params: Promise<{ slug: 
 
   return (
     <article className="mx-auto max-w-3xl px-5 sm:px-8 py-12">
-      <Link
-        href="/njogonal-litteraire"
-        className="inline-flex items-center gap-1.5 text-sm text-ink-muted hover:text-lav-600 transition-colors mb-8"
-      >
-        <ArrowLeft size={15} /> Toutes les vidéos
-      </Link>
+      <div className="flex items-center justify-between mb-8">
+        <Link
+          href="/njogonal-litteraire"
+          className="inline-flex items-center gap-1.5 text-sm text-ink-muted hover:text-lav-600 transition-colors"
+        >
+          <ArrowLeft size={15} /> Toutes les vidéos
+        </Link>
+        <ShareButton title={video.title} />
+      </div>
 
       <div className="relative aspect-video rounded-3xl overflow-hidden bg-gradient-to-br from-lav-100 to-lav-200 mb-6">
         <VideoEmbed url={video.videoUrl} title={video.title} poster={video.coverUrl} />

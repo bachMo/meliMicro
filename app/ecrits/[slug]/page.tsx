@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import { Writing } from "@/lib/types";
 import { fetchWritings } from "@/lib/writings";
+import ShareButton from "@/components/ShareButton";
 
 function formatDate(dateStr: string) {
   if (!dateStr) return "";
@@ -65,16 +66,25 @@ export default function WritingPage({ params }: { params: Promise<{ slug: string
       )}
 
       <article className="relative mx-auto max-w-2xl px-5 sm:px-8 py-12">
-        <Link
-          href="/ecrits"
-          className="inline-flex items-center gap-1.5 text-sm text-ink-muted hover:text-lav-600 transition-colors mb-8"
-        >
-          <ArrowLeft size={15} /> Tous les écrits
-        </Link>
+        <div className="flex items-center justify-between mb-8">
+          <Link
+            href="/ecrits"
+            className="inline-flex items-center gap-1.5 text-sm text-ink-muted hover:text-lav-600 transition-colors"
+          >
+            <ArrowLeft size={15} /> Tous les écrits
+          </Link>
+          <ShareButton title={writing.title} />
+        </div>
 
         <div className={isPoem ? "text-center" : ""}>
-          <span className="text-xs text-lav-600 font-semibold uppercase tracking-wide">
-            {writing.category} · {formatDate(writing.date)}
+          <span
+            className={`flex items-center gap-1.5 text-xs text-lav-600 font-semibold uppercase tracking-wide ${
+              isPoem ? "justify-center" : ""
+            }`}
+          >
+            {writing.category}
+            <span className="w-0.5 h-0.5 rounded-full bg-lav-600 inline-block" />
+            {formatDate(writing.date)}
           </span>
           <h1 className="font-display font-bold text-3xl sm:text-4xl text-ink mt-3 leading-tight">
             {writing.title}

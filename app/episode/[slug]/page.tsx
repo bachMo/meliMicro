@@ -9,6 +9,7 @@ import { fetchEpisodes } from "@/lib/podcast";
 import { usePlayer } from "@/context/PlayerContext";
 import EpisodeRatings from "@/components/EpisodeRatings";
 import EpisodeComments from "@/components/EpisodeComments";
+import ShareButton from "@/components/ShareButton";
 
 function formatDate(dateStr: string) {
   if (!dateStr) return "";
@@ -76,12 +77,15 @@ export default function EpisodePage({
 
   return (
     <article className="mx-auto max-w-3xl px-5 sm:px-8 py-12">
-      <Link
-        href="/episodes"
-        className="inline-flex items-center gap-1.5 text-sm text-ink-muted hover:text-lav-600 transition-colors mb-8"
-      >
-        <ArrowLeft size={15} /> Tous les épisodes
-      </Link>
+      <div className="flex items-center justify-between mb-8">
+        <Link
+          href="/episodes"
+          className="inline-flex items-center gap-1.5 text-sm text-ink-muted hover:text-lav-600 transition-colors"
+        >
+          <ArrowLeft size={15} /> Tous les épisodes
+        </Link>
+        <ShareButton title={episode.title} />
+      </div>
 
       {/* Cover + titre fusionnés dans un même bloc */}
       <div className="rounded-3xl overflow-hidden bg-gradient-to-br from-lav-100 to-lav-200 border border-lav-200/70">

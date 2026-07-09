@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ArrowLeft, Star, BookOpen, ExternalLink } from "lucide-react";
 import { Review } from "@/lib/types";
 import { fetchReviews } from "@/lib/reviews";
+import ShareButton from "@/components/ShareButton";
 
 function formatDate(dateStr: string) {
   if (!dateStr) return "";
@@ -61,12 +62,15 @@ export default function ReviewPage({ params }: { params: Promise<{ slug: string 
 
   return (
     <article className="mx-auto max-w-3xl px-5 sm:px-8 py-12">
-      <Link
-        href="/revues"
-        className="inline-flex items-center gap-1.5 text-sm text-ink-muted hover:text-lav-600 transition-colors mb-8"
-      >
-        <ArrowLeft size={15} /> Toutes les revues
-      </Link>
+      <div className="flex items-center justify-between mb-8">
+        <Link
+          href="/revues"
+          className="inline-flex items-center gap-1.5 text-sm text-ink-muted hover:text-lav-600 transition-colors"
+        >
+          <ArrowLeft size={15} /> Toutes les revues
+        </Link>
+        <ShareButton title={review.bookTitle} />
+      </div>
 
       <div className="rounded-3xl bg-lav-50 border border-lav-200/60 p-6 sm:p-8">
         <div className="flex flex-col sm:flex-row gap-8">
@@ -81,8 +85,10 @@ export default function ReviewPage({ params }: { params: Promise<{ slug: string 
           </div>
 
           <div>
-            <span className="text-xs text-lav-600 font-semibold uppercase tracking-wide">
-              {review.genre} · {formatDate(review.date)}
+            <span className="flex items-center gap-1.5 text-xs text-lav-600 font-semibold uppercase tracking-wide">
+              {review.genre}
+              <span className="w-0.5 h-0.5 rounded-full bg-lav-600 inline-block" />
+              {formatDate(review.date)}
             </span>
             <h1 className="font-display font-bold text-3xl text-ink mt-2 leading-tight">
               {review.bookTitle}
