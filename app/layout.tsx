@@ -5,6 +5,7 @@ import { PlayerProvider } from "@/context/PlayerContext";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Player from "@/components/Player";
+import CommandPalette from "@/components/CommandPalette";
 import { SITE } from "@/lib/config";
 
 const fraunces = Fraunces({
@@ -41,6 +42,7 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
           <Player />
+          <CommandPalette />
         </PlayerProvider>
       </body>
     </html>

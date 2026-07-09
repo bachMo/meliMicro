@@ -4,14 +4,14 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { Mic, Menu, X } from "lucide-react";
+import { Mic, Menu, X, Search, Command } from "lucide-react";
 import { SITE } from "@/lib/config";
 
 const LINKS = [
   { href: "/episodes", label: "Épisodes" },
   { href: "/revues", label: "Revues" },
   { href: "/ecrits", label: "Écrits" },
-  { href: "/njogonal-litteraire", label: "Ndiogonal littéraire" },
+  { href: "/njogonal-litteraire", label: "Njogonal littéraire" },
   { href: "/a-propos", label: "À propos" },
 ];
 
@@ -40,15 +40,28 @@ export default function Nav() {
           ))}
         </nav>
 
-        {/* Bouton hamburger mobile */}
-        <button
-          onClick={() => setOpen((v) => !v)}
-          aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
-          aria-expanded={open}
-          className="sm:hidden grid place-items-center w-9 h-9 rounded-full text-ink-soft hover:bg-lav-100 transition-colors"
-        >
-          {open ? <X size={20} /> : <Menu size={20} />}
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => window.dispatchEvent(new Event("open-command-palette"))}
+            aria-label="Rechercher"
+            className="flex items-center gap-2 rounded-full border border-lav-200 text-ink-soft hover:border-lav-400 hover:text-lav-700 transition-colors px-3 py-1.5"
+          >
+            <Search size={14} />
+            <span className="hidden md:flex items-center gap-0.5 text-[11px] text-ink-muted">
+              <Command size={11} />K
+            </span>
+          </button>
+
+          {/* Bouton hamburger mobile */}
+          <button
+            onClick={() => setOpen((v) => !v)}
+            aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-expanded={open}
+            className="sm:hidden grid place-items-center w-9 h-9 rounded-full text-ink-soft hover:bg-lav-100 transition-colors"
+          >
+            {open ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </div>
 
       {/* Panneau mobile */}
