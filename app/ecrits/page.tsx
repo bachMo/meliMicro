@@ -19,7 +19,7 @@ export default function EcritsPage() {
   }, []);
 
   if (loading) {
-    return <div className="py-24 text-center text-ink-muted text-sm">Chargement...</div>;
+    return <div className="py-24 text-center text-ink-muted text-sm"></div>;
   }
 
   return (

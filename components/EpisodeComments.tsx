@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { MessageCircle, Send } from "lucide-react";
 
 type Comment = { id: string; name: string; text: string; createdAt: string };
@@ -18,6 +19,7 @@ export default function EpisodeComments({ slug }: { slug: string }) {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [highlightId, setHighlightId] = useState<string | null>(null);
 
   const load = () => {
     fetch(`/api/episodes/${slug}/comments`)
@@ -47,7 +49,10 @@ export default function EpisodeComments({ slug }: { slug: string }) {
         setError(data?.error || "Impossible d'envoyer le commentaire.");
         return;
       }
+      const data = await res.json();
       setText("");
+      setHighlightId(data.comment?.id ?? null);
+      setTimeout(() => setHighlightId(null), 1600);
       load();
     } finally {
       setSubmitting(false);
@@ -95,15 +100,32 @@ export default function EpisodeComments({ slug }: { slug: string }) {
         <p className="text-sm text-ink-muted">Sois le premier à laisser un avis.</p>
       ) : (
         <ul className="flex flex-col gap-4">
-          {comments.map((c) => (
-            <li key={c.id} className="rounded-2xl border border-lav-200/70 p-4">
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-sm font-semibold text-ink">{c.name}</span>
-                <span className="text-xs text-ink-muted">{formatDate(c.createdAt)}</span>
-              </div>
-              <p className="text-sm text-ink-soft leading-relaxed whitespace-pre-line">{c.text}</p>
-            </li>
-          ))}
+          <AnimatePresence initial={false}>
+            {comments.map((c) => (
+              <motion.li
+                key={c.id}
+                layout
+                initial={{ opacity: 0, y: -12, scale: 0.98 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                  backgroundColor:
+                    c.id === highlightId
+                      ? ["var(--lav-100)", "var(--lav-100)", "rgba(255,255,255,0.6)"]
+                      : "rgba(255,255,255,0.6)",
+                }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="rounded-2xl border border-lav-200/70 p-4"
+              >
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-sm font-semibold text-ink">{c.name}</span>
+                  <span className="text-xs text-ink-muted">{formatDate(c.createdAt)}</span>
+                </div>
+                <p className="text-sm text-ink-soft leading-relaxed whitespace-pre-line">{c.text}</p>
+              </motion.li>
+            ))}
+          </AnimatePresence>
         </ul>
       )}
     </div>

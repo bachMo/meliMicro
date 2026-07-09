@@ -14,6 +14,7 @@
     "framer-motion": "^12.42.2",
     "lucide-react": "^1.23.0",
     "next": "16.2.10",
+    "opengraph": "^1.0.2",
     "papaparse": "^5.5.4",
     "react": "19.2.4",
     "react-dom": "19.2.4"

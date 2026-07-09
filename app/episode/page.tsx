@@ -30,7 +30,7 @@ export default function EpisodesPage() {
   }, []);
 
   if (loading) {
-    return <div className="py-24 text-center text-ink-muted text-sm">Chargement...</div>;
+    return <div className="py-24 text-center text-ink-muted text-sm"></div>;
   }
 
   const [latest, ...rest] = episodes;

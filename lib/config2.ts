@@ -42,7 +42,7 @@ export const SOCIAL = {
 // photoUrl : colle un lien de partage Google Drive si tu as une photo,
 // sinon laisse vide — un avatar par défaut s'affichera.
 export const AIDA = {
-  name: "Aida Diao",
+  name: "Aïda Diao",
   role: "La voix derrière Meli Micro",
   photoUrl: "https://drive.google.com/file/d/1YwtxpxChCI-kEQ3HTeZQWrWWBCml2Gxs/view?usp=drive_link",
   bio: "J'ai toujours eu trois amours : les livres qu'on referme différent qu'on les a ouverts, l'art qui pose plus de questions qu'il n'apporte de réponses, et les conversations qui vont plus loin que la politesse. Meli Micro est né de cette envie simple : créer un espace où on peut tout se dire, sans avoir à choisir entre légèreté et profondeur.",

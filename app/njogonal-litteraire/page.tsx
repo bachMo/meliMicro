@@ -27,7 +27,7 @@ export default function NjogonalPage() {
       {isDemo && (
         <div className="mx-auto max-w-6xl px-5 sm:px-8 pt-10">
           <p className="text-xs text-lav-600 bg-lav-100 border border-lav-200 rounded-xl px-4 py-3">
-            Mode démonstration : connecte le Google Sheet Njogonal dans{" "}
+            Mode démonstration : connecte le Google Sheet Ndiogonal dans{" "}
             <code className="font-mono">lib/config.ts</code>.
           </p>
         </div>

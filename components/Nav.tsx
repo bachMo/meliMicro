@@ -6,18 +6,20 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Mic, Menu, X, Search, Command } from "lucide-react";
 import { SITE } from "@/lib/config";
+import { usePlayer } from "@/context/PlayerContext";
 
 const LINKS = [
   { href: "/episodes", label: "Épisodes" },
   { href: "/revues", label: "Revues" },
   { href: "/ecrits", label: "Écrits" },
-  { href: "/njogonal-litteraire", label: "Njogonal littéraire" },
+  { href: "/njogonal-litteraire", label: "Ndiogonal littéraire" },
   { href: "/a-propos", label: "À propos" },
 ];
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const { current, isPlaying } = usePlayer();
 
   return (
     <header className="sticky top-0 z-40 backdrop-blur-md bg-cream/80 border-b border-lav-200/60">
@@ -29,6 +31,27 @@ export default function Nav() {
           <span className="font-display font-bold text-lg tracking-tight text-ink">
             {SITE.name}
           </span>
+          {current && (
+            <span className="flex items-end gap-[2.5px] h-3.5 ml-0.5" aria-hidden="true">
+              {[0, 1, 2].map((i) => (
+                <motion.span
+                  key={i}
+                  className="w-[2.5px] rounded-full bg-lav-400"
+                  animate={
+                    isPlaying
+                      ? { height: [4, 14, 6, 12, 4] }
+                      : { height: 4 }
+                  }
+                  transition={{
+                    duration: 1.1,
+                    repeat: isPlaying ? Infinity : 0,
+                    ease: "easeInOut",
+                    delay: i * 0.15,
+                  }}
+                />
+              ))}
+            </span>
+          )}
         </Link>
 
         {/* Navigation desktop */}

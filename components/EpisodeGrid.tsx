@@ -4,10 +4,14 @@ import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { Episode } from "@/lib/types";
 import EpisodeCard from "./EpisodeCard";
+import Pagination from "./Pagination";
+
+const PAGE_SIZE = 10;
 
 export default function EpisodeGrid({ episodes }: { episodes: Episode[] }) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<string>("Tous");
+  const [page, setPage] = useState(1);
 
   const categories = useMemo(() => {
     const set = new Set(episodes.map((e) => e.category));
@@ -26,6 +30,14 @@ export default function EpisodeGrid({ episodes }: { episodes: Episode[] }) {
     });
   }, [episodes, query, category]);
 
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const pageItems = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
+  const handleFilterChange = (fn: () => void) => {
+    fn();
+    setPage(1);
+  };
+
   return (
     <section className="mx-auto max-w-6xl px-5 sm:px-8 py-10">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5 mb-10">
@@ -41,7 +53,7 @@ export default function EpisodeGrid({ episodes }: { episodes: Episode[] }) {
           <input
             type="text"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => handleFilterChange(() => setQuery(e.target.value))}
             placeholder="Rechercher un épisode..."
             className="w-full rounded-full bg-white/70 border border-lav-200 pl-10 pr-4 py-2.5 text-sm text-ink placeholder:text-ink-muted focus:outline-none focus:ring-2 focus:ring-lav-400 transition-shadow"
           />
@@ -52,7 +64,7 @@ export default function EpisodeGrid({ episodes }: { episodes: Episode[] }) {
         {categories.map((cat) => (
           <button
             key={cat}
-            onClick={() => setCategory(cat)}
+            onClick={() => handleFilterChange(() => setCategory(cat))}
             className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-colors ${
               category === cat
                 ? "bg-ink text-cream"
@@ -69,11 +81,14 @@ export default function EpisodeGrid({ episodes }: { episodes: Episode[] }) {
           Aucun épisode ne correspond à cette recherche.
         </p>
       ) : (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.map((episode, i) => (
-            <EpisodeCard key={episode.slug} episode={episode} index={i} />
-          ))}
-        </div>
+        <>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {pageItems.map((episode, i) => (
+              <EpisodeCard key={episode.slug} episode={episode} index={i} />
+            ))}
+          </div>
+          <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
+        </>
       )}
     </section>
   );
