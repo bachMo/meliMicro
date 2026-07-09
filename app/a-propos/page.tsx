@@ -59,7 +59,7 @@ export default function AProposPage() {
             href="/revues"
             className="inline-flex items-center gap-2 rounded-full border border-lav-300 text-ink-soft px-6 py-3 text-sm font-semibold hover:border-lav-500 hover:text-lav-700 transition-colors"
           >
-            <BookOpen size={16} /> Lire ses revues
+            <BookOpen size={16} /> Lire mes revues
           </Link>
         </div>
       </div>
