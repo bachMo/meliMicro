@@ -16,7 +16,7 @@ export const SITE = {
   description:
     "Une safe place pour parler de tout, en toute simplicité et en toute intimité.",
   about:
-    "Meli Micro, c'est une fenêtre sur la vie comme elle est, et une bouchée d'air frais dans les journées trop pleines. Ici, aucun sujet n'est tabou : on reçoit des gens fidèles à eux-mêmes et à leurs passions, on prend le temps de bien se renseigner avant d'en parler, et on garde toujours la même règle — la douceur avant tout.",
+    "Une safe place pour parler de tout, en toute simplicité et en toute intimité. Un podcast qui sera autant une fenêtre sur la vie qu'elle sera une bouchée d'air frais.",
 };
 
 // Chaque section a son propre Google Sheet publié en CSV.
@@ -45,7 +45,7 @@ export const AIDA = {
   name: "Aida Diao",
   role: "La voix derrière Meli Micro",
   photoUrl: "https://drive.google.com/file/d/1YwtxpxChCI-kEQ3HTeZQWrWWBCml2Gxs/view?usp=drive_link",
-  bio: "J'ai toujours eu trois amours : les livres qu'on referme différent qu'on les a ouverts, l'art qui pose plus de questions qu'il n'apporte de réponses, et les conversations qui vont plus loin que la politesse. Meli Micro est né de cette envie simple : créer un espace où on peut tout se dire, sans avoir à choisir entre légèreté et profondeur.",
+  bio: "Meli-Micro m'est venu de cette envie qui m'a toujours manqué d'avoir une safe place, où on se partagerait les expériences de la vie à travers la diversité de nos regards, un espace au sein duquel on se retrouverait entre gens qui se reconnaissent, un espace sans gbou mais surtout sincère et bienveillant. Aujourd'hui cet espace voit le jour et porte le reflet de mon amour pour les échanges vrais, l'art en général et la littérature en particulier. Cet espace est aussi le vôtre, aussi longtemps que vous aurez des choses à dire.",
   passions: ["Lecture", "Art", "Réflexion", "Conversations vraies"],
 };
 
