@@ -45,7 +45,7 @@ export const AIDA = {
   name: "Aida Diao",
   role: "La voix derrière Meli Micro",
   photoUrl: "https://drive.google.com/file/d/1YwtxpxChCI-kEQ3HTeZQWrWWBCml2Gxs/view?usp=drive_link",
-  bio: "Meli-Micro m'est venu de cette envie qui m'a toujours manqué d'avoir une safe place, où on se partagerait les expériences de la vie à travers la diversité de nos regards, un espace au sein duquel on se retrouverait entre gens qui se reconnaissent, un espace sans gbou mais surtout sincère et bienveillant. Aujourd'hui cet espace voit le jour et porte le reflet de mon amour pour les échanges vrais, l'art en général et la littérature en particulier. Cet espace est aussi le vôtre, aussi longtemps que vous aurez des choses à dire.",
+  bio: "Meli-Micro m'est venu de cette envie qui m'a toujours manqué d'avoir une safe place, où on se partagerait les expériences de la vie à travers la diversité de nos regards, un espace au sein duquel on se retrouverait entre gens qui se reconnaissent, un espace sans tabou mais surtout sincère et bienveillant. Aujourd'hui cet espace voit le jour et porte le reflet de mon amour pour les échanges vrais, l'art en général et la littérature en particulier. Cet espace est aussi le vôtre, aussi longtemps que vous aurez des choses à dire.",
   passions: ["Lecture", "Art", "Réflexion", "Conversations vraies"],
 };
 
